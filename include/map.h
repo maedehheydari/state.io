@@ -2,54 +2,20 @@
 
 #define MAP_H
 
-struct Block {
-
-  int x;
-
-  int y;
-
-  int number_of_soldiers;
-
-  struct Player* player;
-
-  struct Block* west;
-
-  struct Block* north_west;
-
-  struct Block* north_east;
-
-  struct Block* east;
-
-  struct Block* south_west;
-
-  struct Block* south_east;
-
-    int status;
 
 
-};
 
-typedef struct Block Block;
 
-struct Player {
-
-  Uint32 color;
-
-   Uint32 sarbazkhuneColor;
-
-  bool is_opponent;
-
-};
-
-typedef struct Player Player;
 
 struct Map {
 
-  Player** players;
+  struct Player** players;
 
-  Block** blocks;
+  struct Block** blocks;
 
 };
+
+
 
 typedef struct Map Map;
 

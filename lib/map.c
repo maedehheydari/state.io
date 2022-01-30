@@ -12,47 +12,15 @@
 
 #include <SDL2/SDL2_gfxPrimitives.h>
 
+#include "../include/player.h"
+
+//#include "../include/linkedlist.h"
+
 #define HEIGHT 800
 
 #define WIDTH 800
 
-#define HEXAGON_LENGTH 40
-
-typedef struct Block {
-
-  int x;
-
-  int y;
-
-  int number_of_soldiers;
-
-  struct Player* player;
-
-  struct Block* west;
-
-  struct Block* north_west;
-
-  struct Block* north_east;
-
-  struct Block* east;
-
-  struct Block* south_west;
-
-  struct Block* south_east;
-
-  int status;
-
-} Block;
-
-typedef struct Player {
-
-  Uint32 color;
-
-  Uint32 sarbazkhuneColor;
-
-  bool is_opponent;
-
-} Player;
+#define HEXAGON_LENGTH 70
 
 typedef struct Map {
 
@@ -61,6 +29,8 @@ typedef struct Map {
   Block** blocks;
 
 } Map;
+
+
 
 bool same_point(int x1, int y1, int x2, int y2) {
 
@@ -88,7 +58,7 @@ void initialize_region_color(Uint32 regionColor[])
       regionColor[9] = 0x55123999;
       regionColor[10] = 0x5540aa30;
       regionColor[11] = 0x55ff6020;
-      regionColor[12] = 0x55
+      regionColor[12] = 0x55935640;
       935640;
 }
 
