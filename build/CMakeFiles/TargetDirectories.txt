@@ -1,0 +1,3 @@
+/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/rebuild_cache.dir
+/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/edit_cache.dir
+/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/main.dir
