@@ -1,12 +1,7 @@
-
 #include <stdio.h>
-
 #include <stdlib.h>
-
 #include <stdbool.h>
-
 #include <time.h>
-
 #include "../include/linkedlist.h"
 
 struct LinkedListNode *linked_list_create(void *data)

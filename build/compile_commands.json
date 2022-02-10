@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/maedeh/Downloads/sdlfinal/SDL/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -I/home/maedeh/Downloads/sdlfinal/SDL/include -I/home/maedeh/Downloads/sdlfinal/SDL/lib  -g   -o CMakeFiles/main.dir/lib/map.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c",
+  "file": "/home/maedeh/Downloads/sdlfinal/SDL/lib/map.c"
+},
+{
+  "directory": "/home/maedeh/Downloads/sdlfinal/SDL/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -I/home/maedeh/Downloads/sdlfinal/SDL/include -I/home/maedeh/Downloads/sdlfinal/SDL/lib  -g   -o CMakeFiles/main.dir/lib/player.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c",
+  "file": "/home/maedeh/Downloads/sdlfinal/SDL/lib/player.c"
+},
+{
+  "directory": "/home/maedeh/Downloads/sdlfinal/SDL/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -I/home/maedeh/Downloads/sdlfinal/SDL/include -I/home/maedeh/Downloads/sdlfinal/SDL/lib  -g   -o CMakeFiles/main.dir/lib/linkedlist.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c",
+  "file": "/home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c"
+},
+{
+  "directory": "/home/maedeh/Downloads/sdlfinal/SDL/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -I/home/maedeh/Downloads/sdlfinal/SDL/include -I/home/maedeh/Downloads/sdlfinal/SDL/lib  -g   -o CMakeFiles/main.dir/main.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/main.c",
+  "file": "/home/maedeh/Downloads/sdlfinal/SDL/main.c"
+}
+]

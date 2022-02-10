@@ -4,43 +4,6 @@
 
 #include "map.h"
 
-typedef struct Block
-{
-
-  int x;
-
-  int y;
-
-  int number_of_soldiers;
-
-  struct Player *player;
-
-  struct Block *west;
-
-  struct Block *north_west;
-
-  struct Block *north_east;
-
-  struct Block *east;
-
-  struct Block *south_west;
-
-  struct Block *south_east;
-
-  int status;
-
-  int id;
-
-  void *surface, *texture;
-
-  bool refresh;
-
-  long long time;
-
-   TTF_Font *font;
-
-} Block;
-
 typedef struct RunningPotion
 {
   struct Potion* potion;
@@ -50,19 +13,12 @@ typedef struct RunningPotion
 
 typedef struct Player
 {
-
   Uint32 color;
-
   Uint32 sarbazkhuneColor;
-
   bool is_opponent;
-
   long long time;
-
   int potionStatus;
-
   struct RunningPotion potion, otherPotion;
-
 } Player;
 
 typedef struct Soldier
@@ -71,7 +27,6 @@ typedef struct Soldier
   int y;
   SDL_Point src;
   SDL_Point dest;
-
   int srcIndex;
   int destIndex;
   long long time;
@@ -80,7 +35,6 @@ typedef struct Soldier
   bool moved;
   int status;
   bool potionChanged;
-
 } Soldier;
 
 typedef struct PotionNode
@@ -89,27 +43,40 @@ typedef struct PotionNode
     int potionStatus;
     long long time;
 }PotionNode;
-
 long long currentTime();
+
+int find_the_block(Map *map, int number_of_blocks, int x, int y);
+
+void generate_soldier(Map *map, int number_of_blocks);
+
+bool usable_function(SDL_Point *point, Map *map, struct LinkedListNode *soldier_node, long long time, bool render);
 
 void move_soldier(Map *map, int srcIndex, int destIndex);
 
-void fix_position(SDL_Point *src, int x, int y, int x2, int y2, int index, int count, bool fromX1);
+void merge_soldiers(Map *map);
 
-void initializeImage(SDL_Renderer* sdlRenderer);
+void render_soldier(SDL_Renderer *SDL_Renderer, Map *map);
 
-void AI( Map *map, int number_of_players, int number_of_blocks);
+void AI(Map *map, int number_of_players, int number_of_blocks);
 
-int is_finished_win(Map *map, int number_of_blocks, int number_of_players);
+void initialize_potions(struct Potion potion[4]);
 
-int is_finished_lose( Map *map, int number_of_blocks, int number_of_players);
-
-int find_the_block( Map *map, int number_of_blocks, int x, int y);
-
-bool find_the_block_for_potion( Map *map, int number_of_blocks, int x, int y);
+bool find_the_block_for_potion(Map *map, int number_of_blocks, int x, int y);
 
 void randomPotion( Map *map, int number_of_blocks, SDL_Point *point);
 
+int findPlayersIndex(struct Player *player, Map *map, int number_of_players);
+
+void conflictWithPotion(Map *map, struct Potion potions[4], int number_of_players);
+
+void is_potion_finished(Map *map, int number_of_players);
+
+void initializeImage(SDL_Renderer* sdlRenderer);
+
 void renderPotion(SDL_Renderer *sdlRenderer,  Map *map, int number_of_blocks);
+
+int is_finished_win( Map *map, int number_of_blocks, int number_of_players);
+
+int is_finished_lose( Map *map, int number_of_blocks, int number_of_players);
 
 #endif

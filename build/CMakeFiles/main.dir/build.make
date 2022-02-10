@@ -60,54 +60,54 @@ include CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/lib/map.c.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/lib/map.c.o: ../lib/map.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/main.dir/lib/map.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/lib/map.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/lib/map.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c
 
 CMakeFiles/main.dir/lib/map.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/lib/map.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c > CMakeFiles/main.dir/lib/map.c.i
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c > CMakeFiles/main.dir/lib/map.c.i
 
 CMakeFiles/main.dir/lib/map.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/lib/map.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c -o CMakeFiles/main.dir/lib/map.c.s
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c -o CMakeFiles/main.dir/lib/map.c.s
 
 CMakeFiles/main.dir/lib/player.c.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/lib/player.c.o: ../lib/player.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main.dir/lib/player.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/lib/player.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/lib/player.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c
 
 CMakeFiles/main.dir/lib/player.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/lib/player.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c > CMakeFiles/main.dir/lib/player.c.i
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c > CMakeFiles/main.dir/lib/player.c.i
 
 CMakeFiles/main.dir/lib/player.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/lib/player.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c -o CMakeFiles/main.dir/lib/player.c.s
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c -o CMakeFiles/main.dir/lib/player.c.s
 
 CMakeFiles/main.dir/lib/linkedlist.c.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/lib/linkedlist.c.o: ../lib/linkedlist.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/main.dir/lib/linkedlist.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/lib/linkedlist.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/lib/linkedlist.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c
 
 CMakeFiles/main.dir/lib/linkedlist.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/lib/linkedlist.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c > CMakeFiles/main.dir/lib/linkedlist.c.i
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c > CMakeFiles/main.dir/lib/linkedlist.c.i
 
 CMakeFiles/main.dir/lib/linkedlist.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/lib/linkedlist.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c -o CMakeFiles/main.dir/lib/linkedlist.c.s
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c -o CMakeFiles/main.dir/lib/linkedlist.c.s
 
 CMakeFiles/main.dir/main.c.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.c.o: ../main.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/main.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/main.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/main.c
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/main.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/main.c
 
 CMakeFiles/main.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/main.c > CMakeFiles/main.dir/main.c.i
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/maedeh/Downloads/sdlfinal/SDL/main.c > CMakeFiles/main.dir/main.c.i
 
 CMakeFiles/main.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/main.c -o CMakeFiles/main.dir/main.c.s
+	/bin/x86_64-linux-gnu-gcc-9 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/maedeh/Downloads/sdlfinal/SDL/main.c -o CMakeFiles/main.dir/main.c.s
 
 # Object files for target main
 main_OBJECTS = \

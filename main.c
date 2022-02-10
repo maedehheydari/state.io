@@ -19,7 +19,6 @@
 #define R_POTION 20
 #define R_SOLDIER 5
 
-
 int main()
 {
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
@@ -40,7 +39,7 @@ int main()
   int seed = 0;
   struct Potion potion[4];
   SDL_bool shallExit = SDL_FALSE;
-  bool start[4];
+  bool start[5];
   bool gen = true;
   initializeStart(start);
   TTF_Font *font = TTF_OpenFont("padmaa.ttf", 22);
@@ -50,19 +49,21 @@ int main()
     if (start[0])
       renderStart1(sdlRenderer, &shallExit, start, font, text);
     else if (start[1])
-    {
       renderStart2(sdlRenderer, map, &shallExit, start, font, &number_of_players, &number_of_blocks, regionColor, sarbazkhuneColor, potion, &seed);
-    }
     else if (start[2])
       renderStart3(sdlRenderer, &shallExit, font);
     else if (gen && start[3])
     {
       generateStart4(sdlRenderer, &map, number_of_players, number_of_blocks, regionColor, sarbazkhuneColor, potion, seed);
       gen = false;
-      renderStart4(sdlRenderer, map, number_of_players, number_of_blocks, &shallExit, potion, text);
+      renderStart4(sdlRenderer, map, number_of_players, number_of_blocks, &shallExit, potion, text, start);
     }
-    else //if (start[3])
-      renderStart4(sdlRenderer, map, number_of_players, number_of_blocks, &shallExit, potion, text);
+    else if (start[3])
+      renderStart4(sdlRenderer, map, number_of_players, number_of_blocks, &shallExit, potion, text, start);
+    else if (start[4])
+      renderStart5(sdlRenderer, map, number_of_players, number_of_blocks, &shallExit, potion, text, start, font);
+    else if (start[5])
+      renderStart6(sdlRenderer, map, number_of_players, number_of_blocks, &shallExit, potion, text, start, font);
   }
   SDL_DestroyRenderer(sdlRenderer);
   SDL_DestroyWindow(sdlWindow);

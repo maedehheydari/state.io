@@ -1,41 +1,25 @@
 #include <stdio.h>
-
 #include <stdlib.h>
-
 #include <stdbool.h>
-
 #include <math.h>
-
 #include <SDL2/SDL.h>
-
 #include <SDL2/SDL2_gfxPrimitives.h>
-
 #include <SDL2/SDL_ttf.h>
-
 #include <SDL2/SDL_image.h>
-
 #include <time.h>
-
 #include <sys/time.h>
-
 #include "../include/map.h"
-
 #include "../include/linkedlist.h"
-
 #include "../include/player.h"
 
 #define HEIGHT 800
-
 #define WIDTH 800
-
 #define HEXAGON_LENGTH 70
-
 #define R_SARBAZKHUNEH 15
-
 #define R_POTION 20
-
 #define R_SOLDIER 5
-
+#define is_in_area(x, y, x1, x2, y1, y2) ((x) >= (x1) && (x) <= (x2) && (y) >= (y1) && (y) <= (y2))
+#define LIMITATION_OF_SOLDIERS(playerStatus) (playerStatus == 1 ? 0 : 50)
 
 long long currentTime()
 {
@@ -43,6 +27,36 @@ long long currentTime()
   gettimeofday(&tv, NULL);
   //??
   return (((long long)tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
+}
+
+int find_the_block(Map *map, int number_of_blocks, int x, int y)
+{
+  for (int i = 0; i < number_of_blocks; i++)
+  {
+    if ((x < map->blocks[i]->x + 60 && x > map->blocks[i]->x - 60) && (y < map->blocks[i]->y + 60 && y > map->blocks[i]->y - 60))
+      return i;
+  }
+  return -1;
+}
+
+long long lastTime = 0;
+void generate_soldier(Map *map, int number_of_blocks)
+{
+  long long time = currentTime();
+  if (time >= lastTime + 1000)
+  {
+    for (int i = 0; i < number_of_blocks; i++)
+    {
+      if (map->blocks[i]->number_of_soldiers >= LIMITATION_OF_SOLDIERS(map->blocks[i]->status))
+        continue;
+      if (map->blocks[i]->player->potion.enabled && map->blocks[i]->player->potion.potion->status == 4)
+        map->blocks[i]->number_of_soldiers += 2;
+      else
+        map->blocks[i]->number_of_soldiers++;
+      map->blocks[i]->refresh = true;
+    }
+    lastTime = time + 1000;
+  }
 }
 
 void fix_position(SDL_Point *src, int x, int y, int x2, int y2, int index, int count, bool fromX1)
@@ -87,6 +101,83 @@ void fix_position(SDL_Point *src, int x, int y, int x2, int y2, int index, int c
   src->y = (int)(b + (m <= 0 ? 1 : -1) * (index * lenY + index * spaceY));
 }
 
+bool usable_function(SDL_Point *point, Map *map, struct LinkedListNode *soldier_node, long long time, bool render)
+{
+  if (soldier_node->data == NULL)
+    return false;
+  Soldier *soldier = soldier_node->data;
+  if (render && soldier->potionChanged)
+  {
+    soldier->potionChanged = false;
+    soldier->time = time;
+    soldier->src.x = soldier->x;
+    soldier->src.y = soldier->y;
+  }
+  int x = soldier->src.x;
+  int y = soldier->src.y;
+  long long passed = time - soldier->time;
+  if (passed < 0 || soldier->time == -1)
+    return false;
+  else
+  {
+    if (render && !soldier->moved)
+    {
+      if (map->blocks[soldier->srcIndex]->player == soldier->player && map->blocks[soldier->srcIndex]->number_of_soldiers > 0)
+      {
+        map->blocks[soldier->srcIndex]->number_of_soldiers--;
+        map->blocks[soldier->srcIndex]->refresh = true;
+        soldier->moved = true;
+      }
+      else
+      {
+        soldier->time = -1;
+        return false;
+      }
+    }
+  }
+  int duration = (int)sqrt(pow(x - soldier->dest.x, 2) + pow(y - soldier->dest.y, 2)) * 10;
+  if (soldier->player->potion.enabled)
+  {
+    if (soldier->player->potion.potion->status == 1)
+      duration /= 3;
+  }
+  if (soldier->player->otherPotion.enabled)
+  {
+    if (soldier->player->otherPotion.potion->status == 2)
+      duration *= 3;
+  }
+  double scale = (double)passed / duration;
+  x += (int)((soldier->dest.x - x) * scale);
+  y += (int)((soldier->dest.y - y) * scale);
+  if (passed > duration)
+  {
+    if (render)
+    {
+      soldier->time = -1;
+      if (map->blocks[soldier->destIndex]->player == soldier->player)
+        map->blocks[soldier->destIndex]->number_of_soldiers++;
+      else
+      {
+        if (map->blocks[soldier->destIndex]->number_of_soldiers == 0)
+        {
+          map->blocks[soldier->destIndex]->player = soldier->player;
+          map->blocks[soldier->destIndex]->status = soldier->status;
+          map->blocks[soldier->destIndex]->number_of_soldiers++;
+        }
+        else
+          map->blocks[soldier->destIndex]->number_of_soldiers--;
+      }
+      map->blocks[soldier->destIndex]->refresh = true;
+    }
+    return false;
+  }
+  point->x = x;
+  point->y = y;
+  soldier->x = x;
+  soldier->y = y;
+  return true;
+}
+
 void move_soldier(Map *map, int srcIndex, int destIndex)
 {
   int count = map->blocks[srcIndex]->number_of_soldiers;
@@ -118,6 +209,60 @@ void move_soldier(Map *map, int srcIndex, int destIndex)
       //??
       map->blocks[destIndex]->time = currentTime() + clmn * duration + (clmn - 1) * 500;
     }
+  }
+}
+
+void merge_soldiers(Map *map)
+{
+  long long time = currentTime();
+
+  for (struct LinkedListNode *soldier_node = map->soldiers->next; soldier_node != NULL; soldier_node = soldier_node->next)
+  {
+    if (soldier_node->data == NULL)
+      continue;
+    Soldier *soldier = soldier_node->data;
+    SDL_Point point;
+    if (usable_function(&point, map, soldier_node, time, false))
+      for (struct LinkedListNode *soldier_node2 = map->soldiers->next->next; soldier_node2 != NULL; soldier_node2 = soldier_node2->next)
+      {
+        SDL_Point point2;
+        if (usable_function(&point2, map, soldier_node2, time, false))
+        {
+          Soldier *soldier2 = soldier_node2->data;
+          if (soldier2->player != soldier->player)
+          {
+            if (is_in_area(point2.x, point2.y, point.x - R_SOLDIER, point.x + R_SOLDIER, point.y - R_SOLDIER, point.y + R_SOLDIER))
+            {
+              soldier->time = -1;
+              soldier2->time = -1;
+            }
+          }
+        }
+      }
+  }
+}
+
+void render_soldier(SDL_Renderer *SDL_Renderer, Map *map)
+{
+  merge_soldiers(map);
+  long long time = currentTime();
+  struct LinkedListNode *parent = map->soldiers;
+  for (struct LinkedListNode *soldier_node = map->soldiers->next; soldier_node != NULL; soldier_node = soldier_node->next)
+  {
+    if (soldier_node->data == NULL)
+      continue;
+    Soldier *soldier = soldier_node->data;
+    SDL_Point point;
+    if (usable_function(&point, map, soldier_node, time, true))
+      filledCircleColor(SDL_Renderer, point.x, point.y, R_SOLDIER, soldier->player->sarbazkhuneColor);
+    else if (soldier->time == -1)
+    {
+      parent->next = soldier_node->next;
+      free(soldier_node->data);
+      free(soldier_node);
+      soldier_node = parent;
+    }
+    parent = soldier_node;
   }
 }
 
@@ -153,46 +298,19 @@ void AI(Map *map, int number_of_players, int number_of_blocks)
   }
 }
 
-int is_finished_win( Map *map, int number_of_blocks, int number_of_players)
+void initialize_potions(struct Potion potion[4])
 {
-  int score = 0;
-  long long time = currentTime();
-  for (int i = 0; i < number_of_blocks; i++)
+  for (int i = 0; i < 4; i++)
   {
-    if (!(map->blocks[i]->status == 0 || map->blocks[i]->status == 1))
-    {
-      // if(time - begginingTime >= 360000)
-      //   score += (360 - (time - begginingTime) / 1000) * 2;
-      //return score;
-      return score;
-    }
+    potion[i].status = i + 1;
+    potion[i].rate_of_generation = 1;
+    potion[i].duration = 10000;
   }
-   score = number_of_players * 100;
-  return score;
-}
-
-int is_finished_lose( Map *map, int number_of_blocks, int number_of_players)
-{
-  int score = 0;
-  for (int i = 0; i < number_of_blocks; i++)
-  {
-    if (map->blocks[i]->status == 0)
-      return score;
-  }
-  score = (13 - number_of_players) * -50;
-  return score;
-}
-
-int find_the_block(Map *map, int number_of_blocks, int x, int y)
-{
-  for (int i = 0; i < number_of_blocks; i++)
-  {
-    if ((x < map->blocks[i]->x + 60 && x > map->blocks[i]->x - 60) && (y < map->blocks[i]->y + 60 && y > map->blocks[i]->y - 60))
-    {
-      return i;
-    }
-  }
-  return -1;
+  potion[3].rate_of_generation = 2;
+  potion[0].color = 0xffbf6b17;
+  potion[1].color = 0xff999900;
+  potion[2].color = 0xff17179b;
+  potion[3].color = 0xffaa3b71;
 }
 
 bool find_the_block_for_potion(Map *map, int number_of_blocks, int x, int y)
@@ -200,9 +318,7 @@ bool find_the_block_for_potion(Map *map, int number_of_blocks, int x, int y)
   for (int i = 0; i < number_of_blocks; i++)
   {
     if ((x < map->blocks[i]->x + HEXAGON_LENGTH * 1.0 * sqrt(3) / 2 && x > map->blocks[i]->x - HEXAGON_LENGTH * 1.0 * sqrt(3) / 2) && (y < map->blocks[i]->y + HEXAGON_LENGTH * 1.0 * sqrt(3) / 2 && y > map->blocks[i]->y - HEXAGON_LENGTH * 1.0 * sqrt(3) / 2))
-    {
       return true;
-    }
   }
   return false;
 }
@@ -216,6 +332,111 @@ void randomPotion( Map *map, int number_of_blocks, SDL_Point *point)
   {
     point->x = rand() % WIDTH;
     point->y = rand() % HEIGHT;
+  }
+}
+
+int findPlayersIndex(struct Player *player, Map *map, int number_of_players)
+{
+  for (int i = 0; i < number_of_players; i++)
+  {
+    if (map->players[i] == player)
+      return i;
+  }
+  return 1;
+}
+
+void conflictWithPotion(Map *map, struct Potion potions[4], int number_of_players)
+
+{
+  long long time = currentTime();
+  bool players_changed[number_of_players];
+  for (int i = 0; i < number_of_players; i++)
+    players_changed[i] = false;
+  for (struct LinkedListNode *potion_node = map->potions->next; potion_node != NULL; potion_node = potion_node->next)
+  {
+    if (potion_node->data == NULL)
+      continue;
+    PotionNode *potion = potion_node->data;
+    SDL_Point *p_potion = &potion->point;
+    int potionStatus = potion->potionStatus;
+    if (potionStatus >= 5)
+      continue;
+    for (struct LinkedListNode *soldier_node = map->soldiers->next; soldier_node != NULL; soldier_node = soldier_node->next)
+    {
+      if (soldier_node->data == NULL)
+        continue;
+      Soldier *soldier = soldier_node->data;
+      SDL_Point point;
+      if (usable_function(&point, map, soldier_node, time, false))
+      {
+        if (is_in_area(point.x, point.y, p_potion->x - R_POTION, p_potion->x + R_POTION, p_potion->y - R_POTION, p_potion->y + R_POTION))
+        {
+          if (!soldier->player->potion.enabled)
+          {
+            soldier->player->potion.enabled = true;
+            soldier->player->potion.time = currentTime();
+            soldier->player->potion.potion = &potions[potionStatus - 1];
+            int player_index = findPlayersIndex(soldier->player, map, number_of_players);
+            players_changed[player_index] = true;
+            if (potionStatus == 2)
+            {
+              for (int i = 0; i < number_of_players; i++)
+              {
+                if (i == player_index)
+                  continue;
+
+                map->players[i]->otherPotion.enabled = true;
+                map->players[i]->otherPotion.time = currentTime();
+                map->players[i]->otherPotion.potion = &potions[potionStatus - 1];
+                players_changed[i] = true;
+              }
+            }
+            potion->potionStatus += 4;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  for (struct LinkedListNode *soldier_node = map->soldiers->next; soldier_node != NULL; soldier_node = soldier_node->next)
+  {
+    if (soldier_node->data == NULL)
+      continue;
+    Soldier *soldier = soldier_node->data;
+    if (players_changed[findPlayersIndex(soldier->player, map, number_of_players)])
+    {
+      soldier->potionChanged = true;
+    }
+  }
+}
+
+void is_potion_finished(Map *map, int number_of_players)
+{
+  long long time = currentTime();
+  for (int i = 0; i < number_of_players; i++)
+  {
+    bool finished = false;
+    if (map->players[i]->potion.enabled && time >= map->players[i]->potion.time + map->players[i]->potion.potion->duration)
+    {
+      map->players[i]->potion.enabled = false;
+      finished = true;
+    }
+    if (map->players[i]->otherPotion.enabled && time >= map->players[i]->otherPotion.time + map->players[i]->otherPotion.potion->duration)
+    {
+      map->players[i]->otherPotion.enabled = false;
+      finished = true;
+    }
+    if (finished)
+    {
+      for (struct LinkedListNode *soldier_node = map->soldiers->next; soldier_node != NULL; soldier_node = soldier_node->next)
+      {
+        if (soldier_node->data == NULL)
+          continue;
+        Soldier *soldier = soldier_node->data;
+        soldier->potionChanged = true;
+      }
+    }
   }
 }
 
@@ -252,7 +473,6 @@ void renderPotion(SDL_Renderer *sdlRenderer,  Map *map, int number_of_blocks)
   struct LinkedListNode *parent = map->soldiers;
   for (struct LinkedListNode *potion_node = map->potions->next; potion_node != NULL; potion_node = potion_node->next)
   {
-
     if (potion_node->data == NULL)
       continue;
     PotionNode *potion = potion_node->data;
@@ -273,62 +493,27 @@ void renderPotion(SDL_Renderer *sdlRenderer,  Map *map, int number_of_blocks)
   }
 }
 
-/*void initialize_x_y_soldiers(Map *map, SDL_Renderer sdlRenderer, int number_of_players)
+int is_finished_win( Map *map, int number_of_blocks, int number_of_players)
 {
-  int r = 5;
-  int distance = 3;
-  for(int i=0; i<number_of_players; i++)
+  int score = 0;
+  long long time = currentTime();
+  for (int i = 0; i < number_of_blocks; i++)
   {
-    for(int j=0; j< map->players[i]->number_of_grohans; j++ )
-    {
-      int col = map->players[i]->grohan[j]->number_of_soldiers / row;
-      int t = 3;
-      for(int k=0; k<col; k++)
-      {
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->x = map->players[i]->grohan[j]->source->x + (map->players[i]->grohan[j]->destination->x - map->players[i]->grohan[j]->source->x) * t;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->y = map->players[i]->grohan[j]->source->y + (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * t;
-       
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-1]->x = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->x - (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * distance;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-1]->y = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->y - (map->players[i]->grohan[j]->source->x - map->players[i]->grohan[j]->destination->x) * distance;
-
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-2]->x = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->x - (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * distance*2;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-2]->y = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->y - (map->players[i]->grohan[j]->source->x - map->players[i]->grohan[j]->destination->x) * distance*2;
-
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1+1]->x = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->x + (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * distance;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1+1]->y = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->y + (map->players[i]->grohan[j]->source->x - map->players[i]->grohan[j]->destination->x) * distance;
-
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1+2]->x = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->x + (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * distance*2;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1+2]->y = map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->y + (map->players[i]->grohan[j]->source->x - map->players[i]->grohan[j]->destination->x) * distance*2;
-
-        t -= 3;
-
-      }
-      int mod = map->players[i]->grohan[j]->number_of_soldiers % row;
-      int temp_x = map->players[i]->grohan[j]->source->x + (map->players[i]->grohan[j]->destination->x - map->players[i]->grohan[j]->source->x) * t;
-      int temp_y = map->players[i]->grohan[j]->source->y + (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * t;
-      if(mod > 0)
-      {
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-2]->x = temp_x - (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * distance*2;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-2]->y = temp_y - (map->players[i]->grohan[j]->source->x - map->players[i]->grohan[j]->destination->x) * distance*2;
-      }
-      if(mod>1)
-      {
-         map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-1]->x = temp_x - (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * distance;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1-1]->y = temp_y - (map->players[i]->grohan[j]->source->x - map->players[i]->grohan[j]->destination->x) * distance;
-
-      }
-      if(mod>2)
-      {
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->x = temp_x
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1]->y = temp_y;
-      }
-      if(mod>3)
-      {
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1+1]->x = temp_x + (map->players[i]->grohan[j]->destination->y - map->players[i]->grohan[j]->source->y) * distance;
-        map->players[i]->grohan[j]->soldier[r*(k+1) - r/2 -1+1]->y = temp_y + (map->players[i]->grohan[j]->source->x - map->players[i]->grohan[j]->destination->x) * distance;
-
-      }
-    }
+    if (!(map->blocks[i]->status == 0 || map->blocks[i]->status == 1))
+      return score;
   }
-}*/
- 
+   score = number_of_players * 100;
+  return score;
+}
+
+int is_finished_lose( Map *map, int number_of_blocks, int number_of_players)
+{
+  int score = 0;
+  for (int i = 0; i < number_of_blocks; i++)
+  {
+    if (map->blocks[i]->status == 0)
+      return score;
+  }
+  score = (13 - number_of_players) * -50;
+  return score;
+}
