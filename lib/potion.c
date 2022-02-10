@@ -22,7 +22,6 @@
 #define is_in_area(x, y, x1, x2, y1, y2) ((x) >= (x1) && (x) <= (x2) && (y) >= (y1) && (y) <= (y2))
 #define LIMITATION_OF_SOLDIERS(playerStatus) (playerStatus == 1 ? 0 : 50)
 
-
 void initialize_potions(struct Potion potion[4])
 {
   for (int i = 0; i < 4; i++)

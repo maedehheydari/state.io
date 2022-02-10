@@ -284,20 +284,20 @@ void renderStart4(SDL_Renderer *sdlRenderer, Map *map, int number_of_players, in
       break;
 
     case SDL_MOUSEBUTTONDOWN:
+      // if (srcIndex == -1)
+      // {
+      //   srcIndex = find_the_block(map, number_of_blocks, sdlEvent.button.x, sdlEvent.button.y);
+      //   if (srcIndex == -1)
+      //     srcIndex = -1;
+      //   touch = srcIndex != -1;
+      // }
       if (srcIndex == -1)
       {
         srcIndex = find_the_block(map, number_of_blocks, sdlEvent.button.x, sdlEvent.button.y);
-        if (srcIndex == -1)
-          srcIndex = -1;
+        if (srcIndex != -1 && map->blocks[srcIndex]->status != 0)
+          srcIndex = 1;
         touch = srcIndex != -1;
       }
-    //   if (srcIndex == -1)
-    //   {
-    //     srcIndex = find_the_block(map, number_of_blocks, sdlEvent.button.x, sdlEvent.button.y);
-    //     if (srcIndex != -1 && map->blocks[srcIndex]->status != 0)
-    //       srcIndex = 1;
-    //     touch = srcIndex != -1;
-    //   }
       else
       {
         destIndex = find_the_block(map, number_of_blocks, sdlEvent.button.x, sdlEvent.button.y);
