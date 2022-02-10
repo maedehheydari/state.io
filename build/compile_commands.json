@@ -16,6 +16,16 @@
 },
 {
   "directory": "/home/maedeh/Downloads/sdlfinal/SDL/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -I/home/maedeh/Downloads/sdlfinal/SDL/include -I/home/maedeh/Downloads/sdlfinal/SDL/lib  -g   -o CMakeFiles/main.dir/lib/menu.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/menu.c",
+  "file": "/home/maedeh/Downloads/sdlfinal/SDL/lib/menu.c"
+},
+{
+  "directory": "/home/maedeh/Downloads/sdlfinal/SDL/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -I/home/maedeh/Downloads/sdlfinal/SDL/include -I/home/maedeh/Downloads/sdlfinal/SDL/lib  -g   -o CMakeFiles/main.dir/lib/potion.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/lib/potion.c",
+  "file": "/home/maedeh/Downloads/sdlfinal/SDL/lib/potion.c"
+},
+{
+  "directory": "/home/maedeh/Downloads/sdlfinal/SDL/build",
   "command": "/bin/x86_64-linux-gnu-gcc-9  -I/usr/include/SDL2 -I/home/maedeh/Downloads/sdlfinal/SDL/include -I/home/maedeh/Downloads/sdlfinal/SDL/lib  -g   -o CMakeFiles/main.dir/main.c.o   -c /home/maedeh/Downloads/sdlfinal/SDL/main.c",
   "file": "/home/maedeh/Downloads/sdlfinal/SDL/main.c"
 }

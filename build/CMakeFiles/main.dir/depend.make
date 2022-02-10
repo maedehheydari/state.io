@@ -6,16 +6,36 @@ CMakeFiles/main.dir/lib/linkedlist.c.o: ../lib/linkedlist.c
 
 CMakeFiles/main.dir/lib/map.c.o: ../include/linkedlist.h
 CMakeFiles/main.dir/lib/map.c.o: ../include/map.h
+CMakeFiles/main.dir/lib/map.c.o: ../include/menu.h
 CMakeFiles/main.dir/lib/map.c.o: ../include/player.h
+CMakeFiles/main.dir/lib/map.c.o: ../include/potion.h
 CMakeFiles/main.dir/lib/map.c.o: ../lib/map.c
+
+CMakeFiles/main.dir/lib/menu.c.o: ../include/linkedlist.h
+CMakeFiles/main.dir/lib/menu.c.o: ../include/map.h
+CMakeFiles/main.dir/lib/menu.c.o: ../include/menu.h
+CMakeFiles/main.dir/lib/menu.c.o: ../include/player.h
+CMakeFiles/main.dir/lib/menu.c.o: ../include/potion.h
+CMakeFiles/main.dir/lib/menu.c.o: ../lib/menu.c
 
 CMakeFiles/main.dir/lib/player.c.o: ../include/linkedlist.h
 CMakeFiles/main.dir/lib/player.c.o: ../include/map.h
+CMakeFiles/main.dir/lib/player.c.o: ../include/menu.h
 CMakeFiles/main.dir/lib/player.c.o: ../include/player.h
+CMakeFiles/main.dir/lib/player.c.o: ../include/potion.h
 CMakeFiles/main.dir/lib/player.c.o: ../lib/player.c
+
+CMakeFiles/main.dir/lib/potion.c.o: ../include/linkedlist.h
+CMakeFiles/main.dir/lib/potion.c.o: ../include/map.h
+CMakeFiles/main.dir/lib/potion.c.o: ../include/menu.h
+CMakeFiles/main.dir/lib/potion.c.o: ../include/player.h
+CMakeFiles/main.dir/lib/potion.c.o: ../include/potion.h
+CMakeFiles/main.dir/lib/potion.c.o: ../lib/potion.c
 
 CMakeFiles/main.dir/main.c.o: ../include/linkedlist.h
 CMakeFiles/main.dir/main.c.o: ../include/map.h
+CMakeFiles/main.dir/main.c.o: ../include/menu.h
 CMakeFiles/main.dir/main.c.o: ../include/player.h
+CMakeFiles/main.dir/main.c.o: ../include/potion.h
 CMakeFiles/main.dir/main.c.o: ../main.c
 

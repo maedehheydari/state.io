@@ -11,6 +11,8 @@
 #include "include/map.h"
 #include "include/player.h"
 #include "include/linkedlist.h"
+#include "include/menu.h"
+#include "include/potion.h"
 
 #define HEIGHT 800
 #define WIDTH 800
@@ -21,11 +23,7 @@
 
 int main()
 {
-  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0)
-  {
-    printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-    return 0;
-  }
+  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
   TTF_Init();
   IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
   SDL_Window *sdlWindow = SDL_CreateWindow("Test_Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL);

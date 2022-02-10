@@ -177,6 +177,33 @@ lib/map.c.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/map.c.s
 .PHONY : lib/map.c.s
 
+lib/menu.o: lib/menu.c.o
+
+.PHONY : lib/menu.o
+
+# target to build an object file
+lib/menu.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/menu.c.o
+.PHONY : lib/menu.c.o
+
+lib/menu.i: lib/menu.c.i
+
+.PHONY : lib/menu.i
+
+# target to preprocess a source file
+lib/menu.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/menu.c.i
+.PHONY : lib/menu.c.i
+
+lib/menu.s: lib/menu.c.s
+
+.PHONY : lib/menu.s
+
+# target to generate assembly for a file
+lib/menu.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/menu.c.s
+.PHONY : lib/menu.c.s
+
 lib/player.o: lib/player.c.o
 
 .PHONY : lib/player.o
@@ -203,6 +230,33 @@ lib/player.s: lib/player.c.s
 lib/player.c.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/player.c.s
 .PHONY : lib/player.c.s
+
+lib/potion.o: lib/potion.c.o
+
+.PHONY : lib/potion.o
+
+# target to build an object file
+lib/potion.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/potion.c.o
+.PHONY : lib/potion.c.o
+
+lib/potion.i: lib/potion.c.i
+
+.PHONY : lib/potion.i
+
+# target to preprocess a source file
+lib/potion.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/potion.c.i
+.PHONY : lib/potion.c.i
+
+lib/potion.s: lib/potion.c.s
+
+.PHONY : lib/potion.s
+
+# target to generate assembly for a file
+lib/potion.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/lib/potion.c.s
+.PHONY : lib/potion.c.s
 
 main.o: main.c.o
 
@@ -246,9 +300,15 @@ help:
 	@echo "... lib/map.o"
 	@echo "... lib/map.i"
 	@echo "... lib/map.s"
+	@echo "... lib/menu.o"
+	@echo "... lib/menu.i"
+	@echo "... lib/menu.s"
 	@echo "... lib/player.o"
 	@echo "... lib/player.i"
 	@echo "... lib/player.s"
+	@echo "... lib/potion.o"
+	@echo "... lib/potion.i"
+	@echo "... lib/potion.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

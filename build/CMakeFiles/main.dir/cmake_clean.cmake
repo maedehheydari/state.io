@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/main.dir/lib/linkedlist.c.o"
   "CMakeFiles/main.dir/lib/map.c.o"
+  "CMakeFiles/main.dir/lib/menu.c.o"
   "CMakeFiles/main.dir/lib/player.c.o"
+  "CMakeFiles/main.dir/lib/potion.c.o"
   "CMakeFiles/main.dir/main.c.o"
   "main"
   "main.pdb"

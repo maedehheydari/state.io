@@ -7,15 +7,35 @@ CMakeFiles/main.dir/lib/linkedlist.c.o
 CMakeFiles/main.dir/lib/map.c.o
  /home/maedeh/Downloads/sdlfinal/SDL/include/linkedlist.h
  /home/maedeh/Downloads/sdlfinal/SDL/include/map.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/menu.h
  /home/maedeh/Downloads/sdlfinal/SDL/include/player.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/potion.h
  /home/maedeh/Downloads/sdlfinal/SDL/lib/map.c
+CMakeFiles/main.dir/lib/menu.c.o
+ /home/maedeh/Downloads/sdlfinal/SDL/include/linkedlist.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/map.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/menu.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/player.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/potion.h
+ /home/maedeh/Downloads/sdlfinal/SDL/lib/menu.c
 CMakeFiles/main.dir/lib/player.c.o
  /home/maedeh/Downloads/sdlfinal/SDL/include/linkedlist.h
  /home/maedeh/Downloads/sdlfinal/SDL/include/map.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/menu.h
  /home/maedeh/Downloads/sdlfinal/SDL/include/player.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/potion.h
  /home/maedeh/Downloads/sdlfinal/SDL/lib/player.c
+CMakeFiles/main.dir/lib/potion.c.o
+ /home/maedeh/Downloads/sdlfinal/SDL/include/linkedlist.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/map.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/menu.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/player.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/potion.h
+ /home/maedeh/Downloads/sdlfinal/SDL/lib/potion.c
 CMakeFiles/main.dir/main.c.o
  /home/maedeh/Downloads/sdlfinal/SDL/include/linkedlist.h
  /home/maedeh/Downloads/sdlfinal/SDL/include/map.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/menu.h
  /home/maedeh/Downloads/sdlfinal/SDL/include/player.h
+ /home/maedeh/Downloads/sdlfinal/SDL/include/potion.h
  /home/maedeh/Downloads/sdlfinal/SDL/main.c

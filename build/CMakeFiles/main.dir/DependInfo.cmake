@@ -6,7 +6,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/home/maedeh/Downloads/sdlfinal/SDL/lib/linkedlist.c" "/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/main.dir/lib/linkedlist.c.o"
   "/home/maedeh/Downloads/sdlfinal/SDL/lib/map.c" "/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/main.dir/lib/map.c.o"
+  "/home/maedeh/Downloads/sdlfinal/SDL/lib/menu.c" "/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/main.dir/lib/menu.c.o"
   "/home/maedeh/Downloads/sdlfinal/SDL/lib/player.c" "/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/main.dir/lib/player.c.o"
+  "/home/maedeh/Downloads/sdlfinal/SDL/lib/potion.c" "/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/main.dir/lib/potion.c.o"
   "/home/maedeh/Downloads/sdlfinal/SDL/main.c" "/home/maedeh/Downloads/sdlfinal/SDL/build/CMakeFiles/main.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

@@ -1,1 +1,1 @@
-/bin/x86_64-linux-gnu-gcc-9 -g   CMakeFiles/main.dir/lib/map.c.o CMakeFiles/main.dir/lib/player.c.o CMakeFiles/main.dir/lib/linkedlist.c.o CMakeFiles/main.dir/main.c.o  -o main  -lm -lSDL2 -lSDL2_gfx -lSDL2_ttf -lSDL2_image 
+/bin/x86_64-linux-gnu-gcc-9 -g   CMakeFiles/main.dir/lib/map.c.o CMakeFiles/main.dir/lib/player.c.o CMakeFiles/main.dir/lib/linkedlist.c.o CMakeFiles/main.dir/lib/menu.c.o CMakeFiles/main.dir/lib/potion.c.o CMakeFiles/main.dir/main.c.o  -o main  -lm -lSDL2 -lSDL2_gfx -lSDL2_ttf -lSDL2_image 
