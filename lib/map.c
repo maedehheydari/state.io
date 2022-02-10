@@ -273,12 +273,10 @@ void renderStart4(SDL_Renderer *sdlRenderer, Map *map, int number_of_players, in
   generate_soldier(map, number_of_blocks);
   AI(map, number_of_players, number_of_blocks);
   render_map(sdlRenderer, number_of_blocks, map);
-  ellipse(sdlRenderer, map->blocks[0]->x, map->blocks[0]->y, 1);
   while (SDL_PollEvent(&sdlEvent))
   {
     switch (sdlEvent.type)
     {
-
     case SDL_QUIT:
       *shallExit = SDL_TRUE;
       break;

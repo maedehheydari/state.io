@@ -23,11 +23,10 @@ typedef struct Block
   struct Block *south_west;
   struct Block *south_east;
   int status;
-  int id;
   void *surface, *texture;
   bool refresh;
   long long time;
-   TTF_Font *font;
+  TTF_Font *font;
 } Block;
 
 typedef struct Potion

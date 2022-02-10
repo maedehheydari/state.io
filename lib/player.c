@@ -88,10 +88,13 @@ void fix_position(SDL_Point *src, int x, int y, int x2, int y2, int index, int c
   int b = m * a + c;
   int a2 = (-(-2 * x - 2 * y * m + 2 * m * c) - sqrt(pow(-2 * x - 2 * y * m + 2 * m * c, 2) - 4 * (m * m + 1) * (x * x + y * y - 2 * y * c + c * c - L))) / 2.0 / (m * m + 1);
   int b2 = m * a2 + c;
+  //??
   int spaceX = space * (fabs(a2 - a)) / full;
   int spaceY = space * (fabs(b2 - b)) / full;
+  //??
   int lenX = len * (fabs(a2 - a)) / full;
   int lenY = len * (fabs(b2 - b)) / full;
+  //??
   src->x = (int)(a - index * lenX - index * spaceX);
   src->y = (int)(b + (m <= 0 ? 1 : -1) * (index * lenY + index * spaceY));
 }
@@ -101,6 +104,7 @@ bool usable_function(SDL_Point *point, Map *map, struct LinkedListNode *soldier_
   if (soldier_node->data == NULL)
     return false;
   Soldier *soldier = soldier_node->data;
+  //?? render application?
   if (render && soldier->potionChanged)
   {
     soldier->potionChanged = false;
@@ -115,6 +119,7 @@ bool usable_function(SDL_Point *point, Map *map, struct LinkedListNode *soldier_
     return false;
   else
   {
+    //?? soldier->moved application
     if (render && !soldier->moved)
     {
       if (map->blocks[soldier->srcIndex]->player == soldier->player && map->blocks[soldier->srcIndex]->number_of_soldiers > 0)
@@ -126,6 +131,7 @@ bool usable_function(SDL_Point *point, Map *map, struct LinkedListNode *soldier_
       else
       {
         soldier->time = -1;
+        //?? what does return show?
         return false;
       }
     }
@@ -141,11 +147,14 @@ bool usable_function(SDL_Point *point, Map *map, struct LinkedListNode *soldier_
     if (soldier->player->otherPotion.potion->status == 2)
       duration *= 3;
   }
+  //??
   double scale = (double)passed / duration;
+  //??
   x += (int)((soldier->dest.x - x) * scale);
   y += (int)((soldier->dest.y - y) * scale);
   if (passed > duration)
   {
+    //??render application
     if (render)
     {
       soldier->time = -1;
@@ -166,6 +175,7 @@ bool usable_function(SDL_Point *point, Map *map, struct LinkedListNode *soldier_
     }
     return false;
   }
+  //?? point application
   point->x = x;
   point->y = y;
   soldier->x = x;
@@ -193,11 +203,14 @@ void move_soldier(Map *map, int srcIndex, int destIndex)
     fix_position(&newsoldier->src, newsoldier->src.x, newsoldier->src.y, newsoldier->dest.x, newsoldier->dest.y, i, count, false);
     newsoldier->x = newsoldier->src.x;
     newsoldier->y = newsoldier->src.y;
+    //??
     linked_list_push(map->soldiers, linked_list_create(newsoldier));
     if (i == 0)
     {
+      //?? *10
       int duration = (int)sqrt(pow(newsoldier->src.x - newsoldier->dest.x, 2) + pow(newsoldier->src.y - newsoldier->dest.y, 2)) * 10;
       int clmn = (int)ceil(count / 4.0);
+                                                                   //??
       map->blocks[destIndex]->time = currentTime() + clmn * duration + (clmn - 1) * 500;
     }
   }
@@ -206,7 +219,6 @@ void move_soldier(Map *map, int srcIndex, int destIndex)
 void merge_soldiers(Map *map)
 {
   long long time = currentTime();
-
   for (struct LinkedListNode *soldier_node = map->soldiers->next; soldier_node != NULL; soldier_node = soldier_node->next)
   {
     if (soldier_node->data == NULL)
@@ -248,11 +260,13 @@ void render_soldier(SDL_Renderer *SDL_Renderer, Map *map)
       filledCircleColor(SDL_Renderer, point.x, point.y, R_SOLDIER, soldier->player->sarbazkhuneColor);
     else if (soldier->time == -1)
     {
+      //??
       parent->next = soldier_node->next;
       free(soldier_node->data);
       free(soldier_node);
       soldier_node = parent;
     }
+    //??
     parent = soldier_node;
   }
 }

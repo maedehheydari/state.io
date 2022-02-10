@@ -208,7 +208,7 @@ void renderStart2(SDL_Renderer *sdlRenderer, Map *map, SDL_bool *shallExit, bool
                     if (!length)
                         *number_of_players = rand() % 5 + 5;
                     else
-                        *number_of_players = atoi(text);
+                        *number_of_players = atoi(text) + 1;
                     if (!length1)
                         *number_of_blocks = rand() % 15 + 15;
                     else
@@ -282,7 +282,7 @@ void renderStart2(SDL_Renderer *sdlRenderer, Map *map, SDL_bool *shallExit, bool
                         if (!length)
                             *number_of_players = rand() % 5 + 5;
                         else
-                            *number_of_players = atoi(text);
+                            *number_of_players = atoi(text) + 1;
                         if (!length1)
                             *number_of_blocks = rand() % 15 + 15;
                         else
@@ -466,7 +466,6 @@ void writeInFile(char name[], int newScore)
             {
                 if (sign == '-')
                     score *= -1;
-
                 if (!find && strcmp(n, name) == 0)
                 {
                     find = true;

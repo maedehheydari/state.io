@@ -78,6 +78,7 @@ void conflictWithPotion(Map *map, struct Potion potions[4], int number_of_player
     players_changed[i] = false;
   for (struct LinkedListNode *potion_node = map->potions->next; potion_node != NULL; potion_node = potion_node->next)
   {
+      //??
     if (potion_node->data == NULL)
       continue;
     PotionNode *potion = potion_node->data;
@@ -101,6 +102,7 @@ void conflictWithPotion(Map *map, struct Potion potions[4], int number_of_player
             soldier->player->potion.time = currentTime();
             soldier->player->potion.potion = &potions[potionStatus - 1];
             int player_index = findPlayersIndex(soldier->player, map, number_of_players);
+            //?? application?
             players_changed[player_index] = true;
             if (potionStatus == 2)
             {
@@ -153,6 +155,7 @@ void is_potion_finished(Map *map, int number_of_players)
     }
     if (finished)
     {
+        //?? what will happen in the following loop??
       for (struct LinkedListNode *soldier_node = map->soldiers->next; soldier_node != NULL; soldier_node = soldier_node->next)
       {
         if (soldier_node->data == NULL)
@@ -183,6 +186,7 @@ void renderPotion(SDL_Renderer *sdlRenderer,  Map *map, int number_of_blocks)
   long long time1 = currentTime();
   srand(time(NULL));
   int x = (rand()%4 + 1) * 2000; 
+  //??
   if (time1 >= lastTimePotion)
   {
     PotionNode *node = malloc(sizeof(PotionNode));
@@ -192,6 +196,7 @@ void renderPotion(SDL_Renderer *sdlRenderer,  Map *map, int number_of_blocks)
     lastTimePotion = time1 + x;
     linked_list_push(map->potions, linked_list_create(node));
   }
+                                      //?? potion?
   struct LinkedListNode *parent = map->soldiers;
   for (struct LinkedListNode *potion_node = map->potions->next; potion_node != NULL; potion_node = potion_node->next)
   {
@@ -204,6 +209,7 @@ void renderPotion(SDL_Renderer *sdlRenderer,  Map *map, int number_of_blocks)
     SDL_Rect rect = {.x = point->x - size/2, .y = point->y - size/2, .w = size, .h = size};
     extern SDL_Texture* potionImages[5];
     SDL_RenderCopy(sdlRenderer, potionImages[(potionStatus > 5 ? 5 : potionStatus) - 1], NULL, &rect);
+                            //>=
     if (potion->time + 10000 <= time1)
     {
       parent->next = potion_node->next;

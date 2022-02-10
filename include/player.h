@@ -37,12 +37,14 @@ typedef struct Soldier
   bool potionChanged;
 } Soldier;
 
+//??
 typedef struct PotionNode
 {
     SDL_Point point ;
     int potionStatus;
     long long time;
 }PotionNode;
+
 long long currentTime();
 
 int find_the_block(Map *map, int number_of_blocks, int x, int y);
