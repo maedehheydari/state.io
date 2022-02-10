@@ -37,7 +37,6 @@ typedef struct Soldier
   bool potionChanged;
 } Soldier;
 
-//??
 typedef struct PotionNode
 {
     SDL_Point point ;
